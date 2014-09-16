@@ -1,4 +1,6 @@
-# Javascript Sequence Alignment Tool
+# SequenceAlignment.JS
+
+___A Sequence Alignment Tool___
 
 ## Setup
 
