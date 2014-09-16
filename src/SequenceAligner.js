@@ -1,9 +1,5 @@
 
 
-var defined = function(elem) {
-	return elem !== undefined;
-}
-
 
 /**
  * Creates a sequence aligner given a scoring schema.
@@ -17,7 +13,6 @@ var SequenceAligner = function(scoringSchema) {
 
 	this.scoringSchema = scoreSchema;
 }
-
 
 /**
  * Aligns the 2 given sequences and returns the result.
@@ -35,32 +30,21 @@ SequenceAligner.prototype.align = function(seq1, seq2) {
 		throw new Error('Sequence 2 must be defined');
 	}
 
-	var 
+	var seq1len = seq1.length;
+	var seq2len = seq2.length;
+
+	var s = new Array(seq1len);
 
 
 };
-
-
-
-
 
 
 /**
- * Scoring Schema Interface
+ * Helper function: defined
+ * 
+ * @param  elem
+ * @return {Boolean}
  */
-var ScoringSchema = function() {
-	throw new Error('ScoringSchema defines an interface and should not be instantiated.')
-}
-
-ScoringSchema.prototype.getScore = function(v, w) {
-  throw new Error('ScoringSchema.getScore needs to be implemented.')
-};
-
-
-var HammingDistanceScoringSchema = function() {
-	
-}
-
-HammingDistanceScoringSchema.prototype.getScore = function(v, w) {
-	return (v === w) ? 0 : 1;
+var defined = function(elem) {
+	return elem !== undefined;
 }
