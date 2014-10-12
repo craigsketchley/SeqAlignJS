@@ -1,0 +1,23 @@
+{
+  "name": "SeqAlignJS",
+  "version": "0.0.1",
+  "description": "A Sequence Alignment tool written in JavaScript.",
+  "main": "SeqAlign.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "npm install -g grunt-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/craigsketchley/SeqAlignJS.git"
+  },
+  "author": "Craig Sketchley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/craigsketchley/SeqAlignJS/issues"
+  },
+  "homepage": "https://github.com/craigsketchley/SeqAlignJS",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
+}

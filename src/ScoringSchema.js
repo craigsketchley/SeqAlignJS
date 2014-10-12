@@ -9,3 +9,5 @@ ScoringSchema.prototype.getScore = function(v, w) {
   throw new Error('ScoringSchema.getScore needs to be implemented.')
 };
 
+
+module.exports = ScoringSchema;
