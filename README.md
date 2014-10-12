@@ -2,6 +2,8 @@
 
 ___A Sequence Alignment Tool___
 
+[![Build Status](https://travis-ci.org/craigsketchley/SeqAlignJS.svg?branch=master)](https://travis-ci.org/craigsketchley/SeqAlignJS)
+
 ## Setup
 
 ### OSX
