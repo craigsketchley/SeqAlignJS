@@ -8,7 +8,7 @@ ___A Sequence Alignment Tool___
 
 ### OSX
 
-1. Install [Homebrew](http://brew.sh/) (it really should be installed, it's pretty good).
+1. Install [Homebrew](http://brew.sh/).
 
     ```
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
