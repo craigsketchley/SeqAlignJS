@@ -1,19 +1,19 @@
 var SequenceAligner = require("../src/SequenceAligner.js");
-var HammingDistanceScoringSchema = require("../src/HammingDistanceScoringSchema.js");
+var MatrixScoringSchema = require("../src/MatrixScoringSchema.js");
 
 
 describe("SequenceAligner", function() {
 
   beforeEach(function() {
-    this.seqAlign = new SequenceAligner({ scoringSchema : HammingDistanceScoringSchema });
+    this.seqAlign = new SequenceAligner({ scoringSchema : new MatrixScoringSchema() });
   });
 
   it("should be able to align 2 sequences", function() {
     var output = this.seqAlign.align("ATAT", "TATA");
 
     expect(output.score).toBe(3);
-    expect(output.seq1).toBe("ATAT-");
-    expect(output.seq2).toBe("-TATA");
+    expect(output.seq1).toBe("-ATAT");
+    expect(output.seq2).toBe("TATA-");
 
     output = this.seqAlign.align("ATCGTAC", "ATGTTAT");
 

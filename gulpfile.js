@@ -1,14 +1,15 @@
 var gulp = require('gulp');
-var browserify = require('gulp-browserify');
 
-gulp.task('browserify', function() {
-	gulp.src('./src/SeqAlign.js')
-	.pipe(browserify())
-	.pipe(gulp.dest('./build/'));
+// include plug-ins
+var jshint = require('gulp-jshint');
+ 
+// JS hint task
+gulp.task('jshint', function() {
+  gulp.src('./src/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', ['browserify']);
-
-gulp.task('watch', function() {
-	gulp.watch('./src/*', ['browserify']);	
-})
+gulp.task('watcher', ['jshint'], function() {
+	gulp.watch('./src/*.js', ['jshint']);
+});

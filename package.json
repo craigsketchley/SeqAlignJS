@@ -1,7 +1,7 @@
 {
   "name": "SeqAlignJS",
   "version": "0.0.1",
-  "description": "A sequence alignment command line tool written in JavaScript",
+  "description": "A sequence alignment tool written in JavaScript",
   "main": "SeqAlign.js",
   "scripts": {
     "test": "jasmine-node ./spec"
@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/craigsketchley/SeqAlignJS",
   "devDependencies": {
-    "colors": "^1.0.3",
+    "cli": "^0.6.5",
     "gulp": "^3.8.8",
-    "gulp-browserify": "^0.5.0",
+    "gulp-jshint": "^1.8.5",
     "jasmine-node": "^1.14.5"
   }
 }
