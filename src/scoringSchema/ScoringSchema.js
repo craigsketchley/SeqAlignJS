@@ -4,7 +4,9 @@
  * This is not supposed to be instantiated directly, but used as an interface
  * when designing new scoring schema.
  */
-var ScoringSchema = function() {};
+var ScoringSchema = function() {
+  // Empty constructor.
+};
 
 /**
  * Given 2 characters in the alphabet, returns the matching score of those 2
@@ -18,6 +20,28 @@ ScoringSchema.prototype.getScore = function(v, w) {
   throw {
   	name : 'Unimplemented Method',
   	message : 'ScoringSchema.getScore needs to be implemented.'
+  };
+}
+
+/**
+ * Returns the cost of opening a gap in a sequence.
+ * @return {[type]} [description]
+ */
+ScoringSchema.prototype.getGapOpenCost = function() {
+  throw {
+    name : 'Unimplemented Method',
+    message : 'ScoringSchema.getGapOpenCost needs to be implemented.'
+  };
+}
+
+/**
+ * Returns the cost of extending an gap in a sequence by 1.
+ * @return {Number} the cost
+ */
+ScoringSchema.prototype.getGapContinueCost = function() {
+  throw {
+    name : 'Unimplemented Method',
+    message : 'ScoringSchema.getGapContinueCost needs to be implemented.'
   };
 }
 

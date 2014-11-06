@@ -9,131 +9,76 @@ var options = cli.parse({
   'debug'       : ['D', 'Enable debug mode']
 }, {
   'global'      : ['Global sequence alignment'],
-  'local'       : ['TODO: Local sequence alignment'],
-  'overlap'     : ['Overlap sequence alignment'],
-  'semi-global' : ['TODO: Semi-global sequence alignment'],
-  'spanning'    : ['Spanning sequence alignment'],
+  'local'       : ['Local sequence alignment'],
   'lcs'         : ['TODO: Longest Common Subsequence']
 });
 
-
-var ScoringSchema = require('./ScoringSchema.js');
-var HammingDistanceScoringSchema = require('./HammingDistanceScoringSchema.js');
-var MatrixScoringSchema = require('./MatrixScoringSchema.js');
+var scoringMatrixParser = require('./util/scoringMatrixParser.js');
+var MatrixScoringSchema = require('./scoringSchema/MatrixScoringSchema.js');
+var SimpleScoringSchema = require('./scoringSchema/SimpleScoringSchema.js');
 var SequenceAligner = require('./SequenceAligner.js');
+var GlobalSequenceAligner = require('./GlobalSequenceAligner.js');
+var LocalSequenceAligner = require('./LocalSequenceAligner.js');
 
 if (options.debug === null) {
   cli.spinner('Aligning...');
 }
 
-fs.readFile('./' + cli.args.shift(), 'utf8', function (err1,data1) {
-  if (err1) {
-    return console.log(err1);
+var scores = {
+  matchScore : 5,
+  mismatchScore : -4,
+  gapOpenCost : -11,
+  gapContCost : -1
+};
+
+fs.readFile('./src/scoringMatrices/DNAfull', 'utf8', function (err, data) {
+  if (err) {
+    return console.log(err);
   }
-  fs.readFile('./' + cli.args.shift(), 'utf8', function (err2,data2) {
-    if (err2) {
-      return console.log(err2); 
-    }
-    var SeqAlign;
-    var debug = options.debug !== null;
+  
+  var matrixSchema = new MatrixScoringSchema({
+    matrix : scoringMatrixParser(data),
+    gapOpenCost : -11,
+    gapContCost : -1
+  });
 
-    switch (cli.command) {
-    case 'global':
-      SeqAlign = GlobalSequenceAligner(debug);
-      break;
-    case 'local':
-      SeqAlign = LocalSequenceAligner(debug);
-      break;
-    case 'overlap':
-      SeqAlign = OverlapSequenceAligner(debug);
-      break;
-    case 'semi-global':
-      SeqAlign = SemiGlobalSequenceAligner(debug);
-      break;
-    case 'spanning':
-      SeqAlign = SpanningSequenceAligner(debug);
-      break;
-    case 'lcs':
-      SeqAlign = LongestCommonSubsequence(debug);
-      break;
-    default:
-      // default behaviour == Global sequence alignment
-      SeqAlign = GlobalSequenceAligner(debug);
+  fs.readFile('./' + cli.args.shift(), 'utf8', function (err1,data1) {
+    if (err1) {
+      return console.log(err1);
     }
+    fs.readFile('./' + cli.args.shift(), 'utf8', function (err2,data2) {
+      if (err2) {
+        return console.log(err2); 
+      }
+      var SeqAlign;
+      var debug = options.debug !== null;
 
-    SeqAlign.align(data1, data2);
-    cli.spinner('Aligning... done!\n', true); //End the spinner
+      switch (cli.command) {
+      case 'global':
+        SeqAlign = new SequenceAligner({
+          debug : debug,
+          scoringSchema : matrixSchema,
+          alignmentType : SequenceAligner.AlignmentType.GLOBAL
+        });
+        break;
+      case 'local':
+        SeqAlign = new SequenceAligner({
+          debug : debug,
+          scoringSchema : matrixSchema,
+          alignmentType : SequenceAligner.AlignmentType.LOCAL
+        });
+        break;
+      default:
+        // default behaviour == Global sequence alignment
+        SeqAlign = new SequenceAligner({
+          debug : debug,
+          scoringSchema : new SimpleScoringSchema(scores),
+          alignmentType : SequenceAligner.AlignmentType.GLOBAL
+        });
+      }
+
+      SeqAlign.align(data1, data2);
+      cli.spinner('Aligning... done!\n', true); //End the spinner
+    });
   });
 });
-
-// Done.
-var GlobalSequenceAligner = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : false,
-    indels : true,
-    mismatch : true,
-    freerides : false,
-    debug : d
-  });
-};
-
-// TODO:
-var LocalSequenceAligner = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : false,
-    indels : true,
-    mismatch : true,
-    freerides : true,
-    debug : d
-  });
-};
-
-// Done.
-var OverlapSequenceAligner = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : false,
-    indels : false,
-    mismatch : true,
-    freerides : false,
-    debug : d
-  });
-};
-
-// TODO:
-var SemiGlobalSequenceAligner = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : false,
-    indels : false,
-    mismatch : true,
-    freerides : false,
-    debug : d
-  });
-};
-
-// Done.
-var SpanningSequenceAligner = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : true,
-    indels : true,
-    mismatch : true,
-    freerides : false,
-    debug : d
-  });
-};
-
-// TODO:
-var LongestCommonSubsequence = function(d) {
-  return new SequenceAligner({
-    scoringSchema : new MatrixScoringSchema(),
-    span : false,
-    indels : false,
-    mismatch : true,
-    freerides : false,
-    debug : d
-  });
-}

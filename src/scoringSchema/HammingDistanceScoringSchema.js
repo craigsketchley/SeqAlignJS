@@ -8,6 +8,23 @@ HammingDistanceScoringSchema.prototype.getScore = function(v, w) {
 	return (v === w) ? 0 : 1;
 };
 
+
+HammingDistanceScoringSchema.prototype.getGapOpenCost = function() {
+	return this.getWorstScore();
+}
+
+HammingDistanceScoringSchema.prototype.getGapContinueCost = function() {
+	return this.getWorstScore();
+}
+
+HammingDistanceScoringSchema.prototype.getInitialScore = function() {
+	return 0;
+}
+
+HammingDistanceScoringSchema.prototype.getWorstScore = function() {
+	return Infinity;
+}
+
 // Minimises the scores.
 HammingDistanceScoringSchema.prototype.compare = function(v, w) {
 	if (v < w) {

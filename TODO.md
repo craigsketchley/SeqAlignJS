@@ -1,17 +1,18 @@
 # TODO List:
 
-- [ ] Parse the scoring matrix from a file?
-- [ ] Global alignment
-- [ ] Local alignment
-- [ ] Affine gap penalties
-- [ ] Overlap alignment
-- [ ] Query alignment
-- [ ] Semi-global alignment
-- [ ] Spanning alignment
-- [ ] Longest Common Subsequence
+- [ ] Parse the scoring matrix from a file
+- [x] Global alignment
+- [x] Local alignment
+- [x] Affine gap penalties
+- [ ] Overlap alignment?
+- [ ] Query alignment?
+- [ ] Semi-global alignment?
+- [ ] Spanning alignment?
+- [ ] Longest Common Subsequence?
 - [ ] Protein alignment? - w/BOSUM & PAM
 - [ ] Codon alignment?
 - [ ] TESTING.
+- [ ] Speed calculations
 
 ## Alignments
 
