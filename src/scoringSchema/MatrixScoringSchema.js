@@ -1,8 +1,9 @@
 "use strict";
 
-var ScoringSchema = require('./ScoringSchema.js');
 var defined = require('../util/defined.js');
 var defaultVal = require('../util/defaultVal.js');
+
+var scoringMatrixParser = require('../util/scoringMatrixParser.js');
 
 /**
  * Defines a Matrix Scoring Schema. Takes an options Object which can define
@@ -10,7 +11,7 @@ var defaultVal = require('../util/defaultVal.js');
  *
  * The options can have the follow properties (with all default values shown):
  * 		var options = {
- * 			matrix : yourParsedScoringMatrix, // must be defined.
+ * 			matrix : scoringMatrix, // string, must be defined.
  * 			gapOpenCost : 0,
  * 			gapContCost : 0
  * 		};
@@ -20,7 +21,7 @@ var MatrixScoringSchema = function(options) {
 		throw new Error('The scoring matrix must be defined.');
 	}
 
-	this.matrix = options.matrix;
+	this.matrix = scoringMatrixParser(options.matrix);
 
 	this.gapOpenCost = defaultVal(options.gapOpenCost, 0);
 	this.gapContCost = defaultVal(options.gapContCost, 0);

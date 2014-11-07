@@ -4,15 +4,13 @@
 - [x] Global alignment
 - [x] Local alignment
 - [x] Affine gap penalties
-- [ ] Overlap alignment?
-- [ ] Query alignment?
-- [ ] Semi-global alignment?
-- [ ] Spanning alignment?
-- [ ] Longest Common Subsequence?
 - [ ] Protein alignment? - w/BOSUM & PAM
-- [ ] Codon alignment?
+- [ ] CLI args - gap cost/extension, matrix file
+- [ ] FASTA format
 - [ ] TESTING.
 - [ ] Speed calculations
+- [ ] A single file containing both sequences?
+- [ ] 2 files containing a sequence each?
 
 ## Alignments
 

@@ -9,20 +9,20 @@ var defined = require('./defined.js');
  * @param  {string} matrix the string version of the matrix
  * @return {Map}           the scoring matrix as a map
  */
-var scoringMatrixParser = function(matrix) {
-	if (!defined(matrix) || typeof matrix !== "string" || matrix.length === 0) {
+var scoringMatrixParser = function(matrixString) {
+	if (!defined(matrixString) || typeof matrixString !== "string" || matrixString.length === 0) {
 		throw new Error('Matrix must be a defined string.');
 	}
 
 	var outputMatrix = {};
 
 	// Split matrix string into lines...
-	matrix = matrix.split(/\n/);
+	matrixString = matrixString.split(/\n/);
 
-	var columns = matrix[0].trim().split(/\s+/);
+	var columns = matrixString[0].trim().split(/\s+/);
 	var cells;
-	for (var i = 1; i < matrix.length; i++) { // i = 1, ignore col headers
-		cells = matrix[i].trim().split(/\s+/);
+	for (var i = 1; i < matrixString.length; i++) { // i = 1, ignore col headers
+		cells = matrixString[i].trim().split(/\s+/);
 		for (var j = 1; j < columns.length + 1; j++) { // j = 1, ignore row headers
 			// The key for a score is the concat of the 2 match characters
 			outputMatrix[cells[0].toUpperCase() + columns[j-1].toUpperCase()] = parseInt(cells[j]);

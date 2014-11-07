@@ -10,8 +10,8 @@ var defaultVal = require('../util/defaultVal.js');
  *
  * The options can have the follow properties (with all default values shown):
  * 		var options = {
- * 			matchScore : 5,
- * 			mismatchScore : -4,
+ * 			matchScore : 1,
+ * 			mismatchScore : -1,
  * 			gapOpenCost : 0,
  * 			gapContCost : 0
  * 		}; // options can be null.
@@ -22,7 +22,7 @@ var SimpleScoringSchema = function(options) {
 	}
 	this.gapOpenCost = defaultVal(options.gapOpenCost, 0);
 	this.gapContCost = defaultVal(options.gapContCost, 0);
-	this.matchScore = defaultVal(options.matchScore, 3);
+	this.matchScore = defaultVal(options.matchScore, 1);
 	this.mismatchScore = defaultVal(options.mismatchScore, -1);
 
 	this.initialScore = 0;

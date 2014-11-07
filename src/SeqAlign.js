@@ -10,35 +10,29 @@ var options = cli.parse({
 }, {
   'global'      : ['Global sequence alignment'],
   'local'       : ['Local sequence alignment'],
-  'lcs'         : ['TODO: Longest Common Subsequence']
+  'lcs'         : ['Longest Common Subsequence']
 });
 
 var scoringMatrixParser = require('./util/scoringMatrixParser.js');
+
 var MatrixScoringSchema = require('./scoringSchema/MatrixScoringSchema.js');
 var SimpleScoringSchema = require('./scoringSchema/SimpleScoringSchema.js');
+var LCSScoringSchema = require('./scoringSchema/LCSScoringSchema.js');
+
 var SequenceAligner = require('./SequenceAligner.js');
-var GlobalSequenceAligner = require('./GlobalSequenceAligner.js');
-var LocalSequenceAligner = require('./LocalSequenceAligner.js');
 
 if (options.debug === null) {
   cli.spinner('Aligning...');
 }
 
-var scores = {
-  matchScore : 5,
-  mismatchScore : -4,
-  gapOpenCost : -11,
-  gapContCost : -1
-};
-
-fs.readFile('./src/scoringMatrices/DNAfull', 'utf8', function (err, data) {
+fs.readFile('./src/scoringMatrices/DNAsimple', 'utf8', function (err, data) {
   if (err) {
     return console.log(err);
   }
-  
+
   var matrixSchema = new MatrixScoringSchema({
-    matrix : scoringMatrixParser(data),
-    gapOpenCost : -11,
+    matrix : data,
+    gapOpenCost : -5,
     gapContCost : -1
   });
 
@@ -50,34 +44,41 @@ fs.readFile('./src/scoringMatrices/DNAfull', 'utf8', function (err, data) {
       if (err2) {
         return console.log(err2); 
       }
-      var SeqAlign;
+      var aligner;
       var debug = options.debug !== null;
 
       switch (cli.command) {
-      case 'global':
-        SeqAlign = new SequenceAligner({
-          debug : debug,
-          scoringSchema : matrixSchema,
-          alignmentType : SequenceAligner.AlignmentType.GLOBAL
-        });
-        break;
-      case 'local':
-        SeqAlign = new SequenceAligner({
-          debug : debug,
-          scoringSchema : matrixSchema,
-          alignmentType : SequenceAligner.AlignmentType.LOCAL
-        });
-        break;
-      default:
-        // default behaviour == Global sequence alignment
-        SeqAlign = new SequenceAligner({
-          debug : debug,
-          scoringSchema : new SimpleScoringSchema(scores),
-          alignmentType : SequenceAligner.AlignmentType.GLOBAL
-        });
+        case 'global':
+          aligner = new SequenceAligner({
+            debug : debug,
+            scoringSchema : matrixSchema,
+            alignmentType : SequenceAligner.AlignmentType.GLOBAL
+          });
+          break;
+        case 'local':
+          aligner = new SequenceAligner({
+            debug : debug,
+            scoringSchema : matrixSchema,
+            alignmentType : SequenceAligner.AlignmentType.LOCAL
+          });
+          break;
+        case 'lcs':
+          aligner = new SequenceAligner({
+            debug : debug,
+            scoringSchema : new LCSScoringSchema(),
+            alignmentType : SequenceAligner.AlignmentType.GLOBAL
+          });
+          break;
+        default:
+          // default behaviour == Global sequence alignment
+          aligner = new SequenceAligner({
+            debug : debug,
+            scoringSchema : matrixSchema,
+            alignmentType : SequenceAligner.AlignmentType.GLOBAL
+          });
       }
 
-      SeqAlign.align(data1, data2);
+      aligner.align(data1, data2);
       cli.spinner('Aligning... done!\n', true); //End the spinner
     });
   });
