@@ -21,7 +21,7 @@ ScoringSchema.prototype.getScore = function(v, w) {
   	name : 'Unimplemented Method',
   	message : 'ScoringSchema.getScore needs to be implemented.'
   };
-}
+};
 
 /**
  * Returns the cost of opening a gap in a sequence.
@@ -32,7 +32,7 @@ ScoringSchema.prototype.getGapOpenCost = function() {
     name : 'Unimplemented Method',
     message : 'ScoringSchema.getGapOpenCost needs to be implemented.'
   };
-}
+};
 
 /**
  * Returns the cost of extending an gap in a sequence by 1.
@@ -43,7 +43,7 @@ ScoringSchema.prototype.getGapContinueCost = function() {
     name : 'Unimplemented Method',
     message : 'ScoringSchema.getGapContinueCost needs to be implemented.'
   };
-}
+};
 
 /**
  * Returns the initial score for the beginning of the DP Table.
@@ -54,7 +54,7 @@ ScoringSchema.prototype.getInitialScore = function() {
     name : 'Unimplemented Method',
     message : 'ScoringSchema.getInitialScore needs to be implemented.'
   };
-}
+};
 
 /**
  * Returns the worst possible score for this scoring schema. It should be used
@@ -67,7 +67,7 @@ ScoringSchema.prototype.getWorstScore = function() {
   	name : 'Unimplemented Method',
   	message : 'ScoringSchema.getWorstScore needs to be implemented.'
   };
-}
+};
 
 /**
  * Given 2 scores, returns an indication which is the more favourable according
@@ -87,6 +87,6 @@ ScoringSchema.prototype.compare = function(x, y) {
 		name : 'Unimplemented Method',
 		message : 'ScoringSchema.compare needs to be implemented.'
 	};
-}
+};
 
 module.exports = ScoringSchema;

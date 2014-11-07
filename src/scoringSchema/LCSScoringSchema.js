@@ -23,27 +23,27 @@ var LCSScoringSchema = function() {
 	this.mismatchScore = -Infinity;
 	this.initialScore = 0;
 	this.worstScore = 0;
-}
+};
 
 LCSScoringSchema.prototype.getScore = function(v, w) {
 	return (v === w) ? this.matchScore : this.mismatchScore;
-}
+};
 
 LCSScoringSchema.prototype.getGapOpenCost = function() {
 	return this.gapOpenCost;
-}
+};
 
 LCSScoringSchema.prototype.getGapContinueCost = function() {
 	return this.gapContCost;
-}
+};
 
 LCSScoringSchema.prototype.getInitialScore = function() {
 	return this.initialScore;
-}
+};
 
 LCSScoringSchema.prototype.getWorstScore = function() {
 	return this.worstScore;
-}
+};
 
 // The higher the score the better
 LCSScoringSchema.prototype.compare = function(x, y) {
@@ -53,6 +53,6 @@ LCSScoringSchema.prototype.compare = function(x, y) {
 		return 1;
 	}
 	return 0;
-}
+};
 
 module.exports = LCSScoringSchema;

@@ -28,7 +28,7 @@ var MatrixScoringSchema = function(options) {
 
 	this.initialScore = 0;
 	this.worstScore = -Infinity;
-}
+};
 
 MatrixScoringSchema.prototype.getScore = function(v, w) {
 	if (this.matrix[v.toUpperCase() + w.toUpperCase()] === undefined) {
@@ -37,23 +37,23 @@ MatrixScoringSchema.prototype.getScore = function(v, w) {
 		return this.getWorstScore();
 	}
 	return this.matrix[v.toUpperCase() + w.toUpperCase()];
-}
+};
 
 MatrixScoringSchema.prototype.getGapOpenCost = function() {
 	return this.gapOpenCost;
-}
+};
 
 MatrixScoringSchema.prototype.getGapContinueCost = function() {
 	return this.gapContCost;
-}
+};
 
 MatrixScoringSchema.prototype.getInitialScore = function() {
 	return this.initialScore;
-}
+};
 
 MatrixScoringSchema.prototype.getWorstScore = function() {
 	return this.worstScore;
-}
+};
 
 MatrixScoringSchema.prototype.compare = function(x, y) {
 	// The higher the score the better
@@ -63,6 +63,6 @@ MatrixScoringSchema.prototype.compare = function(x, y) {
 		return 1;
 	}
 	return 0;
-}
+};
 
 module.exports = MatrixScoringSchema;

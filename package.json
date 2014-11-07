@@ -11,7 +11,7 @@
     "url": "https://github.com/craigsketchley/SeqAlignJS.git"
   },
   "author": "Craig Sketchley",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/craigsketchley/SeqAlignJS/issues"
   },
@@ -19,8 +19,6 @@
   "devDependencies": {
     "biojs-io-fasta": "0.0.13",
     "cli": "^0.6.5",
-    "gulp": "^3.8.8",
-    "gulp-jshint": "^1.8.5",
     "jasmine-node": "^1.14.5"
   }
 }

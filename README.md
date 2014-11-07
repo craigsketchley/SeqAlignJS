@@ -8,54 +8,55 @@ ___A Sequence Alignment Tool___
 
 ### OSX
 
-1. Install [Homebrew](http://brew.sh/).
+1. Clone [this repository](#).
 
-    ```
-    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    ```
-2. Install Node.js:
+2. Install Node.js by using [Homebrew](http://brew.sh/).
 
     ```
     $ brew install node
     ```
-3. In the root project folder, install the project dependencies using:
+
+    Alternatively, you can get the package direct from [Node.js](http://nodejs.org).
+3. Once that's installed, install the project dependencies using:
 
     ```
     $ node install
     ```
-4. Then "compile" (it's not really compiling) all the modules:
+
+4. You should now have all the dependencies install and you're ready to go. From the project root directory, you can run using the following command to get more details:
 
     ```
-    $ gulp
-    ```
-5. You should now have a `build` directory containing `SeqAlign.js`. That's the tool. From the project root directory, you can run using the following command:
-
-    ```
-    $ node ./build/SeqAlign.js
+    $ ./SeqAlign.js --help
     ```
 
 ### Linux
 
-1. Install [Node.js](http://nodejs.org).
+1. Clone [this repository](#).
 
-2. Go to step 3 of the OSX setup above.
+2. Install [Node.js](http://nodejs.org).
+
+3. Go to step 3 of the OSX setup above.
 
 ### Windows
 
-Three easy steps:
-
-1. Uninstall Windows
-2. Install Linux
-3. See above.
+I know you can install [Node.js](http://nodejs.org) for Windows but I've never tried. Let me know how this goes.
 
 ## Usage
 
-### Aligning Sequences
+### Aligning Sequencess
 
-[Not sure how this is going to work just yet]
-
-### Running the tests
+An example use of SeqAlign could be as follows:
 
 ```
-jasmine-node ./spec
+$ ./SeqAlign.js local input/PRTN200a input/PRTN200b -m ./src/scoringMatrices/BLOSUM62 -O -5 -C -2
+```
+
+Supplied to `SeqAlign.js` is the `local` command, this tells it to complete a local sequence alignment. Next are the two FASTA format files containing the 2 sequences to be aligned, `input/PRTN200a input/PRTN200b`. The `-m /src/scoringMatrices/BLOSUM62` options indicates a scoring matrix to be used. `-O -5` specifies a gap opening cost of -5 and `-C -2` a gap continuing cost of -2 for alignment scoring.
+
+## Testing
+
+The tests are found in the [spec](spec) directory. They can be run using:
+
+```
+$ npm test
 ```

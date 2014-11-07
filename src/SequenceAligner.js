@@ -17,7 +17,7 @@ var AlignmentType = {
 /**
  * Creates a sequence aligner given a scoring schema.
  *
- * options - the following indicate all the default values:
+ * options - the following values indicate all the defaults:
  *
  *  var options = {
  *      scoringSchema : new SimpleScoringSchema(),
@@ -44,7 +44,11 @@ SequenceAligner.AlignmentType = AlignmentType; // Static property
 /**
  * Aligns the 2 given sequences and returns the result.
  *
- *  Table dimensions:
+ * It can complete global and local pairwise sequence alignment with affine
+ * gap cost.
+ *
+ * Here is the assumed dynamic programming table orientation with sequence 1
+ * aligned along the top edge:
  *  
  *     (0,0)  i ->
  *         +-+-+-+-+-+
@@ -57,8 +61,8 @@ SequenceAligner.AlignmentType = AlignmentType; // Static property
  *         | | | | | |
  *         +-+-+-+-+-+
  * 
- * @param  {String} seq1
- * @param  {String} seq2
+ * @param  {String} seq1    the first sequence in the pairwise alignment
+ * @param  {String} seq2    the second sequence in the pairwise alignment
  * @return {String}
  */
 SequenceAligner.prototype.align = function(seq1, seq2) {
@@ -109,7 +113,7 @@ SequenceAligner.prototype.align = function(seq1, seq2) {
         deletePtrTable[i] = new Array(seq2len + 1);
 
         for (j = 0; j < seq2len + 1; j++) {
-            if (i === 0 && j == 0) {
+            if (i === 0 && j === 0) {
                 // in the top left corner, initial values...
                 matchTable[i][j] = this.scoringSchema.getInitialScore();
                 matchPtrTable[i][j] = null;
@@ -209,6 +213,7 @@ SequenceAligner.prototype.align = function(seq1, seq2) {
     }
 
     if (this.DEBUG) {
+        // Output useful info.
         process.stdout.write("INSERTION TABLE: |\n");
         process.stdout.write(tableStringifier(insertTable, seq1, seq2));
         process.stdout.write("\n");
@@ -243,6 +248,7 @@ SequenceAligner.prototype.align = function(seq1, seq2) {
     output.score = max;
 
     if (this.DEBUG) {
+        // Output useful info.
         process.stdout.write("Final Score = " + output.score + "\n");
         process.stdout.write(output.seq1);
         process.stdout.write("\n");
@@ -263,10 +269,14 @@ SequenceAligner.prototype.align = function(seq1, seq2) {
  * The backtracking of the DP tables. Requires all 3 DP pointer tables to trace
  * the sequence.
  * 
- * @param  {Array}  table  the DP table
- * @param  {String} seq1   the original input sequence 1
- * @param  {String} seq2   the original input sequence 2
- * @return {Object}        contains both output Strings containing appropriate indels
+ * @param  {Array} insertPtrTable   holds the backtracking info for the insert table
+ * @param  {Array} matchPtrTable    holds the backtracking info for the match table
+ * @param  {Array} deletePtrTable   holds the backtracking info for the delete table
+ * @param  {String} seq1            the original input sequence 1
+ * @param  {String} seq2            the original input sequence 2
+ * @param  {Integer} startI         the starting i index
+ * @param  {Integer} startJ         the starting j index
+ * @return {Object}        both output strings containing appropriate indels
  */
 function backtrack(insertPtrTable, matchPtrTable, deletePtrTable, seq1, seq2, startI, startJ) {
     var outputSeq1 = [];
@@ -325,6 +335,11 @@ function backtrack(insertPtrTable, matchPtrTable, deletePtrTable, seq1, seq2, st
 
 /**
  * Helper function used for printing the contents of the DP table in debug mode.
+ * 
+ * @param  {Array} table  the DP table
+ * @param  {string} seq1  the first sequence in the pairwise alignment
+ * @param  {string} seq2  the second sequence in the pairwise alignment
+ * @return {string}       a string representation of the given input table
  */
 function tableStringifier(table, seq1, seq2) {
     var output = ("\t0\t" + seq1.split("").join("\t") + "\n0\t");

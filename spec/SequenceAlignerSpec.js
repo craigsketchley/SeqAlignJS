@@ -354,11 +354,75 @@ describe("SequenceAligner", function() {
       });
 
       it("should be able locally align a perfect subsequence", function() {
-        output = this.seqAlign.align("AAACGTCGTAAAAA", "GGGGGGCGTCGT");
+        output = this.seqAlign.align("AAACGTCGTAAAAA", "GGGGGGCGTCGTGGG");
 
         expect(output.score).toBe(30);
         expect(output.seq1).toBe("CGTCGT");
         expect(output.seq2).toBe("CGTCGT");
+      });
+
+      it("should be able locally align a perfect subsequence at the ends of both sequences", function() {
+        output = this.seqAlign.align("AAAAAATTTT", "GGGGGGTTTT");
+
+        expect(output.score).toBe(20);
+        expect(output.seq1).toBe("TTTT");
+        expect(output.seq2).toBe("TTTT");
+      });
+
+      it("should be able locally align a perfect subsequence at the beginning of both sequences", function() {
+        output = this.seqAlign.align("TTTTAAAAAAA", "TTTTGGGGGG");
+
+        expect(output.score).toBe(20);
+        expect(output.seq1).toBe("TTTT");
+        expect(output.seq2).toBe("TTTT");
+      });
+
+      it("should be able locally align a perfect subsequence in the middle of both sequences", function() {
+        output = this.seqAlign.align("AAAAATTTTAAAAAAA", "GGGGGTTTTGGGGGG");
+
+        expect(output.score).toBe(20);
+        expect(output.seq1).toBe("TTTT");
+        expect(output.seq2).toBe("TTTT");
+      });
+
+      it("should be able locally align a perfect subsequence at mixed positions", function() {
+        output = this.seqAlign.align("AAATTTTAAAAA", "GGGGGGTTTT");
+
+        expect(output.score).toBe(20);
+        expect(output.seq1).toBe("TTTT");
+        expect(output.seq2).toBe("TTTT");
+      });
+
+      it("should be able locally align a perfect single character subsequence at the ends of both sequences", function() {
+        output = this.seqAlign.align("AAAAAAT", "GGGGGGT");
+
+        expect(output.score).toBe(5);
+        expect(output.seq1).toBe("T");
+        expect(output.seq2).toBe("T");
+      });
+
+      it("should be able locally align a perfect single character subsequence at the beginning of both sequences", function() {
+        output = this.seqAlign.align("TAAAAAAA", "TGGGGGG");
+
+        expect(output.score).toBe(5);
+        expect(output.seq1).toBe("T");
+        expect(output.seq2).toBe("T");
+      });
+
+      it("should be able locally align a perfect single character subsequence in the middle of both sequences", function() {
+        output = this.seqAlign.align("AAAAATAAAAAAA", "GGGGGTGGGGGG");
+
+        expect(output.score).toBe(5);
+        expect(output.seq1).toBe("T");
+        expect(output.seq2).toBe("T");
+      });
+
+      it("should be able locally align a perfect single character subsequence at mixed positions", function() {
+        output = this.seqAlign.align("AAATAAAAA", "GGGGGGT");
+
+        expect(output.score).toBe(5);
+        expect(output.seq1).toBe("T");
+        expect(output.seq2).toBe("T");
       });
 
     });

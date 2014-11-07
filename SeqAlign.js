@@ -27,7 +27,7 @@ var options = cli.parse({
   'gapopen'     : ['O', 'Set the gap opening cost for the alignment.', 'number', -12],
   'gapcont'     : ['C', 'Set the gap continuing cost for the alignment', 'number', -2],
   'matrix'      : ['m', 'Pass in the file containing the score matrix', 'path'],
-  'output'      : ['o', 'Set the output file for the alignment', 'path']
+  'output'      : ['o', 'Set the output file for the alignment, default stdout', 'path']
 }, {
   'global'      : ['Global sequence alignment'],
   'local'       : ['Local sequence alignment'],
@@ -83,7 +83,7 @@ function align(filepath1, filepath2, scoringSchema) {
     }
 
     try {
-      seq1 = (Fasta.parse(data1))[0].seq;
+      seq1 = (Fasta.parse(data1))[0];
     } catch (e) {
       process.stdout.write("The file " + filepath1 + " is not in FASTA format:\n---\n" + data1 + "\n");
       process.exit(-1);
@@ -95,7 +95,7 @@ function align(filepath1, filepath2, scoringSchema) {
       }
 
       try {
-        seq2 = (Fasta.parse(data2))[0].seq;
+        seq2 = (Fasta.parse(data2))[0];
       } catch (e) {
         process.stdout.write("The file " + filepath2 + " is not in FASTA format:\n---\n" + data2 + "\n");
         process.exit(-1);
@@ -130,13 +130,13 @@ function align(filepath1, filepath2, scoringSchema) {
         var tag = 'timed for ' + options.time + ' iterations.';
         console.time(tag);
         for (var i = 0; i < options.time; i++) {
-          result = aligner.align(seq1, seq2);
+          result = aligner.align(seq1.seq, seq2.seq);
         }
         console.timeEnd(tag);
       } else {
-        result = aligner.align(seq1, seq2);
+        result = aligner.align(seq1.seq, seq2.seq);
       }
-      output = result.score + "\n" + result.seq1 + "\n" + result.seq2 + "\n";
+      output = result.score + "\n>" + seq1.name + "\n" + result.seq1 + "\n>" + seq2.name + "\n" + result.seq2 + "\n";
 
       if (defined(options.output)) {
         // Write to the specified file...
