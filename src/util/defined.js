@@ -5,7 +5,7 @@
  * @return {Boolean}
  */
 var defined = function(elem) {
-    return elem !== undefined;
+    return elem !== undefined && elem !== null;
 };
 
 

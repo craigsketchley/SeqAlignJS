@@ -2,14 +2,16 @@ var gulp = require('gulp');
 
 // include plug-ins
 var jshint = require('gulp-jshint');
- 
+
+var paths = ['./src/*.js', './src/scoringMatrices/*.js', './src/scoringSchema/*.js', './src/util/*.js'];
+
 // JS hint task
 gulp.task('jshint', function() {
-  gulp.src('./src/*.js')
+  gulp.src(paths)
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
 gulp.task('watcher', ['jshint'], function() {
-	gulp.watch('./src/*.js', ['jshint']);
+	gulp.watch(paths, ['jshint']);
 });

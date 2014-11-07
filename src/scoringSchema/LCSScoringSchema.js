@@ -20,7 +20,7 @@ var LCSScoringSchema = function() {
 	this.gapOpenCost = 0;
 	this.gapContCost = 0;
 	this.matchScore = 1;
-	this.mismatchScore = 0;
+	this.mismatchScore = -Infinity;
 	this.initialScore = 0;
 	this.worstScore = 0;
 }

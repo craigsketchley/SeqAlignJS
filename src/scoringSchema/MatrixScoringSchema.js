@@ -31,10 +31,9 @@ var MatrixScoringSchema = function(options) {
 }
 
 MatrixScoringSchema.prototype.getScore = function(v, w) {
-	if (this.matrix[v.toUpperCase() + w.toUpperCase()] === null) {
+	if (this.matrix[v.toUpperCase() + w.toUpperCase()] === undefined) {
 		// If the characters don't exist in the matrix...
 		// ...assume the worst!
-		console.log('the worst');
 		return this.getWorstScore();
 	}
 	return this.matrix[v.toUpperCase() + w.toUpperCase()];

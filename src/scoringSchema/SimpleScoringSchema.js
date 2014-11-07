@@ -21,7 +21,7 @@ var SimpleScoringSchema = function(options) {
 		options = {};
 	}
 	this.gapOpenCost = defaultVal(options.gapOpenCost, 0);
-	this.gapContCost = defaultVal(options.gapContCost, 0);
+	this.gapContCost = defaultVal(options.gapContCost, -1);
 	this.matchScore = defaultVal(options.matchScore, 1);
 	this.mismatchScore = defaultVal(options.mismatchScore, -1);
 
