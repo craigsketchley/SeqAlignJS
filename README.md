@@ -10,20 +10,20 @@ ___A Sequence Alignment Tool___
 
 1. Clone [this repository](#).
 
-2. Install Node.js by using [Homebrew](http://brew.sh/).
+2. Install Node.js using [Homebrew](http://brew.sh/).
 
     ```
     $ brew install node
     ```
 
     Alternatively, you can get the package direct from [Node.js](http://nodejs.org).
-3. Once that's installed, install the project dependencies using:
+3. Once that's installed, install the project dependencies. In the project root directory run:
 
     ```
     $ node install
     ```
 
-4. You should now have all the dependencies install and you're ready to go. From the project root directory, you can run using the following command to get more details:
+4. You should now have all the dependencies installed, you're ready to go. From the project root directory, you can get more information using the following command:
 
     ```
     $ ./SeqAlign.js --help
@@ -52,6 +52,8 @@ $ ./SeqAlign.js local input/PRTN200a input/PRTN200b -m ./src/scoringMatrices/BLO
 ```
 
 Supplied to `SeqAlign.js` is the `local` command, this tells it to complete a local sequence alignment. Next are the two FASTA format files containing the 2 sequences to be aligned, `input/PRTN200a input/PRTN200b`. The `-m /src/scoringMatrices/BLOSUM62` options indicates a scoring matrix to be used. `-O -5` specifies a gap opening cost of -5 and `-C -2` a gap continuing cost of -2 for alignment scoring.
+
+Please use `--help` or `-h` for more information on other commands.
 
 ## Testing
 
